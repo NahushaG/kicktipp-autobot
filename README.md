@@ -300,3 +300,52 @@ This is a production-style automation system.
 # 👨‍💻 Author
 
 Built with engineering frustration, football competitiveness, and the refusal to let friends win because of missed deadlines.
+
+
+---
+
+# 🧪 Manual Dry-Run Trigger
+
+The scheduler runs automatically every Monday at 09:00.
+
+For local testing, the app also provides a manual dry-run endpoint:
+
+```bash
+curl -X POST http://localhost:8080/api/match-week/prepare
+```
+
+Expected response:
+
+```text
+Match week prediction preparation triggered in dry-run mode.
+```
+
+This endpoint uses the fake KickTipp client and dry-run writer, so it does not update any real KickTipp data.
+
+---
+
+# ✅ CI
+
+This repository includes a GitHub Actions workflow:
+
+```text
+.github/workflows/maven-build.yml
+```
+
+It runs:
+
+```bash
+mvn clean install
+```
+
+on every push and pull request to `main`.
+
+---
+
+# 📘 Architecture Docs
+
+See:
+
+```text
+docs/architecture.md
+```
