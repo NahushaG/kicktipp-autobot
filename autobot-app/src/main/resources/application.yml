@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: kicktipp-autobot
+
+server:
+  port: 8080
+
+autobot:
+  mode: DRY_RUN
