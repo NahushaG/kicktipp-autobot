@@ -5,45 +5,32 @@ import org.springframework.stereotype.Service;
 @Service
 public class FootballSignalProvider {
 
+  private final AiFootballSignalService aiFootballSignalService;
+
+  public FootballSignalProvider(AiFootballSignalService aiFootballSignalService) {
+    this.aiFootballSignalService = aiFootballSignalService;
+  }
+
   public TeamPredictionSignal buildSignal(
       String teamName,
       Fixture fixture,
       TeamSide side
   ) {
+    AiFootballSignal aiSignal = aiFootballSignalService.generateSignal(
+        teamName,
+        fixture,
+        side
+    );
+
     return new TeamPredictionSignal(
         teamName,
         side,
-        calculateLast10Form(teamName),
-        calculateLast5Momentum(teamName),
-        calculateGoalsScoredAverage(teamName),
-        calculateGoalsConcededAverage(teamName),
-        calculateInjuryImpact(teamName),
+        aiSignal.last10FormScore(),
+        aiSignal.last5MomentumScore(),
+        aiSignal.goalsScoredAverage(),
+        aiSignal.goalsConcededAverage(),
+        aiSignal.injuryImpact(),
         side == TeamSide.HOME ? 0.25 : 0.0
     );
-  }
-
-  //TODO - Actual logic for later stage
-  private double calculateLast10Form(String teamName) {
-    return 0.65;
-  }
-
-  //TODO - Actual logic for later stage
-  private double calculateLast5Momentum(String teamName) {
-    return 0.60;
-  }
-
-  //TODO - Actual logic for later stage
-  private double calculateGoalsScoredAverage(String teamName) {
-    return 1.6;
-  }
-
-  //TODO - Actual logic for later stage
-  private double calculateGoalsConcededAverage(String teamName) {
-    return 1.2;
-  }
-
-  //TODO - Actual logic for later stage
-  private double calculateInjuryImpact(String teamName) {
-    return 0.10;
   }
 }
