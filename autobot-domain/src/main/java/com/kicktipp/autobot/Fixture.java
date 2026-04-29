@@ -10,4 +10,5 @@ public record Fixture(
         LocalDateTime kickOffTime,
         LocalDateTime predictionDeadline
 ) {
+
 }
